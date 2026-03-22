@@ -84,8 +84,8 @@ open index.html
 ### Set up your own Supabase database
 
 1. Create a free project at [supabase.com](https://supabase.com)
-2. Go to **SQL Editor** and run the following:
 
+2. Go to **SQL Editor** and run the following SQL to create the required tables:
 ```sql
 CREATE TABLE profiles (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -128,11 +128,13 @@ CREATE POLICY "Public access" ON unavailability FOR ALL USING (true) WITH CHECK 
 
 3. Go to **Project Settings → Data API** and copy your **Project URL** and **Publishable Key**
 
-4. Replace the values at the top of `index.html`:
-
+4. Open `index.html` and replace the placeholder values at the top of the script section with your own:
 ```javascript
-const SUPA_URL = "https://your-project.supabase.co";
-const SUPA_KEY = "your-publishable-key";
+const SUPA_URL = "https://your-project.supabase.co";  // your Project URL
+const SUPA_KEY = "your-publishable-key";               // your Publishable Key
+```
+
+5. Save the file — you are now connected to your own database
 ```
 
 ---
