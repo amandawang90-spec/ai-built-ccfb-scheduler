@@ -26,7 +26,7 @@ A full-stack web application for managing and coordinating volunteer duties for 
 ### General
 - Fully responsive — works on laptop, tablet and mobile
 - Persistent data — all schedules, members and photos saved in Supabase
-- Secure login — each user has their own account with password
+- Each user has their own account with password
 - Zero dependencies — no frameworks, no npm, no build step required
 
 ---
@@ -63,102 +63,11 @@ A full-stack web application for managing and coordinating volunteer duties for 
 
 ---
 
-## Getting Started
+## Setup
 
-### Run locally
+This app is connected to a Supabase database and hosted on Netlify.
 
-No build step required. Simply open `index.html` in any modern browser.
-
-```bash
-# Clone the repository
-git clone https://github.com/amandawang90-spec/ccfb-scheduler.git
-
-# Open in browser
-open index.html
-```
-
-> When running locally the app connects to the Supabase instance configured in the source. To use your own database, follow the Supabase setup steps below.
-
----
-
-### Set up your own Supabase database
-
-1. Create a free project at [supabase.com](https://supabase.com)
-
-2. Go to **SQL Editor** and run the following SQL to create the required tables:
-```sql
-CREATE TABLE profiles (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name text NOT NULL,
-  email text UNIQUE NOT NULL,
-  role text NOT NULL DEFAULT 'member',
-  photo text,
-  password_hash text,
-  created_at timestamp DEFAULT now()
-);
-
-CREATE TABLE schedules (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  year int NOT NULL,
-  month int NOT NULL,
-  day_type text NOT NULL,
-  week_index int NOT NULL,
-  role_id text NOT NULL,
-  member_name text NOT NULL DEFAULT '',
-  updated_at timestamp DEFAULT now(),
-  UNIQUE(year, month, day_type, week_index, role_id)
-);
-
-CREATE TABLE unavailability (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  member_name text NOT NULL,
-  date_key text NOT NULL,
-  reason text NOT NULL DEFAULT 'Other',
-  UNIQUE(member_name, date_key)
-);
-
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE schedules ENABLE ROW LEVEL SECURITY;
-ALTER TABLE unavailability ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Public access" ON profiles FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Public access" ON schedules FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Public access" ON unavailability FOR ALL USING (true) WITH CHECK (true);
-```
-
-3. Go to **Project Settings → Data API** and copy your **Project URL** and **Publishable Key**
-
-4. Open `index.html` and replace the placeholder values at the top of the script section with your own:
-```javascript
-const SUPA_URL = "https://your-project.supabase.co";  // your Project URL
-const SUPA_KEY = "your-publishable-key";               // your Publishable Key
-```
-
-5. Save the file — you are now connected to your own database
-```
-
----
-
-### Deploy to Netlify
-
-1. Create a free account at [netlify.com](https://netlify.com)
-2. From your dashboard click **Add new project → Deploy manually**
-3. Drag and drop `index.html` onto the upload area
-4. Netlify gives you a live URL instantly
-5. Optionally rename your site under **Site configuration → Change site name**
-
----
-
-## Default Admin Account
-
-On first load the app automatically creates a default admin account:
-
-| Field | Value |
-|-------|-------|
-| Email | admin@church.com |
-| Password | Admin123 |
-
-> **Important:** Change the admin password immediately after first login via Profile → Change Password.
+To run your own instance you will need a free [Supabase](https://supabase.com) account and a free [Netlify](https://netlify.com) account.
 
 ---
 
