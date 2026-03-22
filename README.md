@@ -71,7 +71,7 @@ No build step required. Simply open `index.html` in any modern browser.
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ccfb-scheduler.git
+git clone https://github.com/amandawang90-spec/ccfb-scheduler.git
 
 # Open in browser
 open index.html
